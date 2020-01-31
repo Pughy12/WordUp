@@ -1,11 +1,9 @@
 .word-up {
-  background-color: #282c34;
-  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 100vh;
   text-align: center;
+  margin-top: 20px;
 }
 
 .guess-form {
@@ -24,6 +22,16 @@
   flex-grow: 1;
 }
 
+.guess-results__list h5,
+.guess-results__item p {
+  animation: fadein 0.75s;
+}
+
 .hint-container {
   margin-top: 20px;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

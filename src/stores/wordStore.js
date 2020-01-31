@@ -1,30 +1,39 @@
-import WordFileLoader from './wordFileLoader';
 import basicWords from './basicWords';
+import { extendObservable } from 'mobx';
 
 class WordStore {
     constructor() {
-        //Setup basic word list first
-        this.basicWords = basicWords;
-        console.log("# Hard coded words: " + this.basicWords.length);
-
-        this.allWords = [...this.basicWords];
-
-        //Load the full word list
-        this.dynamicWords = [];
-        WordFileLoader.loadWords(this.setWords);
+        extendObservable(this, {
+            basicWords: basicWords,
+            dynamicWords: new Promise((resolve) => {
+                while (false) {}
+                resolve();
+            }),
+            allWords: []
+        });
     }
 
     getBasicWords = () => this.basicWords;
 
-    getAllWords = () => this.allWords;
+    getDynamicWords = () => this.dynamicWords;
 
-    setWords = (words) => {
-        this.dynamicWords = words || [];
-        console.log("# Dynamic words: " + this.dynamicWords.length);
+    // async, can be awaited
+    setDynamicWords = (words) => {
+        return this.dynamicWords = words;
+    }
 
-        this.allWords = Array.from(new Set(this.basicWords.concat(this.dynamicWords)));
-        this.allWords.sort();
+    /**
+     * await this 
+     */
+    getAllWords = async() => {
+        let dWords = await this.dynamicWords;
+
+        console.log('building all words from ' + this.basicWords.length + 'basic and ' + dWords.length + ' dynamic');
+
+        this.allWords = [...this.basicWords, ...dWords];
         console.log("# All words: " + this.allWords.length);
+
+        return this.allWords.sort();
     };
 }
 

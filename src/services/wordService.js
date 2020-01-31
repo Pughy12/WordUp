@@ -1,4 +1,4 @@
-// Stores
+import Axios from 'axios';
 import WordStore from '../stores/wordStore';
 
 export default {
@@ -30,8 +30,8 @@ export default {
     /**
      * Checks if word is in store
      */
-    wordIsValid: (word) => {
-        const validWords = WordStore.getAllWords();
+    wordIsValid: async(word) => {
+        const validWords = await WordStore.getAllWords();
         return validWords.some(entry => word.toLowerCase() === entry.toLowerCase());
     },
 
@@ -40,5 +40,28 @@ export default {
      */
     wordsMatch: (first, second) => {
         return first === second;
+    },
+
+    /**
+     * async method to get load words from file
+     */
+    loadWords: () => {
+        //Load data via GET request (async)
+        WordStore.setDynamicWords(
+            Axios.get(`/words/words.txt`)
+            .then(response => {
+                if (!response) {
+                    return;
+                }
+
+                const words = response.data.split("\n");
+                console.log("Loaded " + words.length + " words");
+
+                if (words.length > 0) {
+                    console.log(" Recieved dynamic words");
+                    return (words);
+                }
+            })
+        )
     }
 };

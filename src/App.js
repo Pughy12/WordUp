@@ -2,20 +2,24 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 function App() {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = React.useMemo(
-    () =>
+  const theme =
     createMuiTheme({
       palette: {
-        type: prefersDarkMode ? 'dark' : 'light',
+        type: 'dark'
       },
-    }), [prefersDarkMode],
-  );
+    });
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <Routes />
       </BrowserRouter>

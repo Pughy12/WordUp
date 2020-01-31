@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SubmitButton from '../components/SubmitButton';
 import GuessInput from '../components/GuessInput';
-import GifMeAHintButton from '../containers/GifMeAHint';
+import GifMeAHintButton from '../components/GifMeAHint';
 
 export default class GuessForm extends Component {
     submitHandler = (event) => {
@@ -17,6 +17,7 @@ export default class GuessForm extends Component {
 
         return (
             <form className="guess-form" onSubmit={this.submitHandler}>
+            
                 <GuessInput guessText={guessText} errorMessage={errorMessage} handleTextUpdate={handleTextUpdate}  />
                 <SubmitButton error={error} />
                 <GifMeAHintButton wordToGuess={this.props.wordToGuess}/>
