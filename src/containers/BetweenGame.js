@@ -3,6 +3,7 @@ import BetweenStateStore from '../stores/betweenStateStore';
 import Text from '../components/Text'
 import GuessForm from '../components/GuessForm';
 import { observer } from 'mobx-react';
+import Typography from '@material-ui/core/Typography';
 
 class BetweenGame extends Component {
 
@@ -61,6 +62,8 @@ class BetweenGame extends Component {
         return (
             // first word
             <div>
+                <img src="/logo.png" alt="Word Up!" />
+                <Typography variant="h3">Find the words in-between</Typography>
                 <div>
                     <Text text={ BetweenStateStore.getStartWord() } />
                 </div>

@@ -46,7 +46,7 @@ const hiscoreFunctions = {
     submitHiscore: async(username, numGuesses, numAssists) => {
 
         //score can be negative if you're really bad
-        const score = hiscoreFunctions.calculateHiscore(numGuesses, numGuesses);
+        const score = hiscoreFunctions.calculateHiscore(numGuesses, numAssists);
         console.log(`User: ${username}, # Guesses: ${numGuesses}, # Assists: ${numAssists}, Score: ${score}`);
 
         return Axios.get(

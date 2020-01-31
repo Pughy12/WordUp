@@ -22,22 +22,25 @@ class WinModal extends Component {
     }
 
     handleClose = () => {
-        guessMyWordStateStore.setWinModalOpen(false);
-
-        const numGuesses = guessMyWordStateStore.getNGuesses();
-        const numAssists = 3 - guessMyWordStateStore.getGifUrls().length;
         if (this.state.username.length > 0) {
+            const numGuesses = guessMyWordStateStore.getNGuesses();
+            const numAssists = 3 - guessMyWordStateStore.getGifUrls().length;
+            // console.log(`handleClose; numGuesses: ${numGuesses}, numAssists: ${numAssists}, GIF URLS: ${guessMyWordStateStore.getGifUrls()}`);
             hiscoreService.submitHiscore(this.state.username, numGuesses, numAssists);
         }
         else {
-            console.log('No username submitted');
+            alert('No username submitted');
+            return;
         }
 
+        guessMyWordStateStore.setWinModalOpen(false);
+        this.setState({
+            username: ''
+        });
         guessMyWordStateStore.newGameState();
     }
 
     handleUpdateUsername = (event) => {
-        console.log(event.target.value);
         this.setState({
             username: event.target.value
         });
@@ -57,7 +60,7 @@ class WinModal extends Component {
                 >
                     <div className='hiscores-modal-container'>
                       <h2 id="simple-modal-title">A winner is you!</h2>
-                      <Typography variant="p">You did it in { numGuesses } guesses, using { numAssists } assists, for a score of { score }.</Typography>
+                      <Typography variant="body1">You did it in { numGuesses } guesses, using { numAssists } assists, for a score of { score }.</Typography>
                       <TextField 
                         type = "text"
                         placeholder = "Your name"
