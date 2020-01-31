@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SubmitButton from '../components/SubmitButton';
 import GuessInput from '../components/GuessInput';
-import GifMeAHintButton from '../components/GifMeAHintButton';
+import GifMeAHintButton from '../containers/GifMeAHint';
 
 export default class GuessForm extends Component {
     submitHandler = (event) => {

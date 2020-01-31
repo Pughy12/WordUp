@@ -1,57 +1,35 @@
 import React, { Component } from 'react';
-import wordService from '../services/wordService';
 import GuessForm from '../containers/GuessForm';
 import GuessResult from '../containers/GuessResult';
-//import LogIn from '../containers/LogIn'
-
+import wordService from '../services/wordService';
 import Typography from '@material-ui/core/Typography';
+import SimpleGameStateStore from '../stores/simpleGameStateStore';
 
-
-export default class SimpleGame extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = SimpleGame.provideNewGameState();
-    }
-
-    static provideNewGameState = () => {
-        const baseState = {
-            wordToGuess: null,
-            guessedWordsBefore: [],
-            guessedWordsAfter: [],
-            guessText: '',
-            errorMessage: '',
-        };
-
-        const newState = { ...baseState };
-
-        newState.wordToGuess = wordService.pickGuessWord();
-
-        return newState;
-    }
+export default class SimpleGameCopy extends Component {
 
     componentDidMount = () => {
-        // this.setState(SimpleGame.provideNewGameState());
+        SimpleGameStateStore.newGameState();
     }
 
     handleTextUpdate = (inputText) => {
-        this.setState({ guessText: inputText, errorMessage: '' });
+        SimpleGameStateStore.setGuessText(inputText);
+        SimpleGameStateStore.setErrorMessage('');
     }
 
     handleGuess = () => {
-        const guess = this.state.guessText;
+        const guess = SimpleGameStateStore.getGuessText();
+        const wordToGuess = SimpleGameStateStore.getWordToGuess();
 
         if (wordService.wordIsValid(guess)) {
 
             // Check for exact match first
-            if (wordService.wordsMatch(guess, this.state.wordToGuess)) {
+            if (wordService.wordsMatch(guess, wordToGuess)) {
                 this.win();
                 return;
             }
 
             // Check before / after if not correct
-            if (wordService.wordIsBefore(guess, this.state.wordToGuess)) {
+            if (wordService.wordIsBefore(guess, wordToGuess)) {
                 this.handleGuessNotCorrect(guess, 'before');
             }
             else {
@@ -60,20 +38,21 @@ export default class SimpleGame extends Component {
         }
         else {
             const errorMessage = 'Please enter an actual word'
-            this.setState({ errorMessage: errorMessage });
+            SimpleGameStateStore.setErrorMessage(errorMessage);
         }
     }
 
     win = () => {
-        console.log("=========================== WIN =====================")
-        var numGuesses = this.state.guessedWordsBefore.length + this.state.guessedWordsAfter.length + 1;
-        this.setState(SimpleGame.provideNewGameState());
+        console.log("=========================== WIN ===========================")
+        const numGuesses = SimpleGameStateStore.getGuessedWordsBefore().length + SimpleGameStateStore.getGuessedWordsAfter().length + 1;
+
+        SimpleGameStateStore.newGameState();
         alert('You win!!! # Guesses: ' + numGuesses);
     }
 
     handleGuessNotCorrect = (guess, result) => {
-        const beforeGuesses = [...this.state.guessedWordsBefore];
-        const afterGuesses = [...this.state.guessedWordsAfter];
+        const beforeGuesses = [...SimpleGameStateStore.getGuessedWordsBefore()];
+        const afterGuesses = [...SimpleGameStateStore.getGuessedWordsAfter()];
 
         if (result === 'before') {
             beforeGuesses.push(guess);
@@ -96,7 +75,6 @@ export default class SimpleGame extends Component {
 
         return (
             <div>
-                <img src="/logo.png" alt="Word Up!" />
                 <Typography variant="h3">Guess the word I am thinking of</Typography>
                 <GuessForm guessText={guessText} errorMessage={errorMessage} handleTextUpdate={this.handleTextUpdate} handleSubmitGuess={this.handleGuess} wordToGuess={wordToGuess}/>
                 <GuessResult guessedWordsBefore={guessedWordsBefore} guessedWordsAfter={guessedWordsAfter} />

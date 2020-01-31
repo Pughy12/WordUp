@@ -21,7 +21,7 @@ export default {
     },
 
     /**
-     * Checks if word is before another alphabetically
+     * Checks if word is after another alphabetically
      */
     wordIsAfter: (wordChecked, wordToCheckAgainst) => {
         return [wordChecked, wordToCheckAgainst].sort()[1] === wordChecked;

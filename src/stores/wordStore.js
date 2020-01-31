@@ -1,10 +1,10 @@
 import WordFileLoader from './wordFileLoader';
-import words from './words';
+import basicWords from './basicWords';
 
 class WordStore {
     constructor() {
         //Setup basic word list first
-        this.basicWords = words;
+        this.basicWords = basicWords;
         console.log("# Hard coded words: " + this.basicWords.length);
 
         this.allWords = [...this.basicWords];
