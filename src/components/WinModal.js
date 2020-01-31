@@ -67,7 +67,7 @@ class WinModal extends Component {
                         label = "Required"
                         value = { this.state.username }
                         onChange = { this.handleUpdateUsername } required / >
-                      <Button variant="contained" color="secondary" onClick={this.handleClose}>Close</Button>
+                      <Button variant="contained" color="secondary" onClick={this.handleClose}>Submit Hiscore</Button>
                     </div>
                 </Modal>
         );

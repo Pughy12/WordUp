@@ -48,7 +48,7 @@ export default class ViewHiscores extends Component {
                                 <tr><th>Name</th><th>Score</th><th>Date</th></tr>
                             </thead>
                             <tbody>
-                                {this.state.currentHiscores.map((hiscore, i) => <tr><td>{hiscore.name}</td><td>{hiscore.score}</td><td>{hiscore.date}</td></tr>)}
+                                {this.state.currentHiscores.map((hiscore, i) => <tr key={i + '-hiscore'}><td>{hiscore.name}</td><td>{hiscore.score}</td><td>{hiscore.date}</td></tr>)}
                             </tbody>
                         </table>
                       <Button variant="contained" color="secondary" onClick={this.handleClose}>Close</Button>

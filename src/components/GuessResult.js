@@ -19,7 +19,7 @@ export default class GuessResult extends Component {
             <section className='guess-results'>
                 <div className='guess-results__list'>
                     {/* wordList.length === 0 ? '' : <Typography variant="h5">Your target word is {type}:</Typography> */}
-                    {wordList.map((word, i) => <span className="guess-results__item"><Text text={word} key={i + '-' + type} /></span> )}
+                    {wordList.map((word, i) => <span className="guess-results__item" key={i + '-span-' + type}><Text text={word} key={i + '-' + type} /></span> )}
                 </div>
             </section>
         )
