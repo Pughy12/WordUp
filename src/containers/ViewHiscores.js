@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Text from '../components/Text';
 import Button from "@material-ui/core/Button";
 import Modal from '@material-ui/core/Modal';
 

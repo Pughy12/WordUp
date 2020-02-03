@@ -19,12 +19,12 @@ class GuessMyWordGame extends Component {
         GuessMyWordStateStore.setErrorMessage('');
     }
 
-    handleGuess = () => {
+    handleGuess = async () => {
         const guess = GuessMyWordStateStore.getGuessText();
         const wordToGuess = GuessMyWordStateStore.getWordToGuess();
         const guessedWords = [...GuessMyWordStateStore.getGuessedWordsBefore(), ...GuessMyWordStateStore.getGuessedWordsAfter()];
 
-        if (wordService.wordIsValid(guess)) {
+        if (await wordService.wordIsValid(guess)) {
 
             if (guessedWords.includes(guess)) {
                 const errorMessage = 'Originality is key...'

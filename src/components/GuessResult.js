@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Text from '../components/Text';
 
-import Typography from '@material-ui/core/Typography';
-
 export default class GuessResult extends Component {
     render() {
         let wordList = this.props.guessedWords;

@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';

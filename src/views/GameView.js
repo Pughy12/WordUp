@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import GuessMyWordGame from '../containers/GuessMyWordGame';
-import MidiPlayer from '../components/MidiPlayer';
+import AudioPlayer from '../components/AudioPlayer';
 import WordService from '../services/wordService'
 
 export default class GameView extends Component {
@@ -12,7 +12,7 @@ export default class GameView extends Component {
     render() {
         return (
             <div className="word-up">
-              <MidiPlayer />
+              <AudioPlayer />
               <GuessMyWordGame />
             </div>
         );

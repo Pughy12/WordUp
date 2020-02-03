@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import midi_file from 'public/word-up.mid';
 
-export default class MidiPlayer extends Component {
+export default class AudioPlayer extends Component {
 
     render() {
         return (

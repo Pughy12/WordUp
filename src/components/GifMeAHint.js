@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import GuessMyWordStateStore from "../stores/guessMyWordStateStore";
 
 class GifMeAHint extends Component {
-    GUESSES_FOR_HINT = 3;
+    GUESSES_FOR_HINT = 15;
 
     constructor(props) {
         super(props);
@@ -30,7 +30,6 @@ class GifMeAHint extends Component {
         const showGif = GuessMyWordStateStore.getShowGif();
         const showButton = ((GuessMyWordStateStore.getNGuesses() >= this.GUESSES_FOR_HINT) && GuessMyWordStateStore.getGifUrls().length);
         const buttonText = (GuessMyWordStateStore.getGifUrls().length === 3) ? 'GIF me a hint :)' : 'GIF me another';
-        const { wordToGuess } = this.props;
 
         return (
             <div className="hint-container">
