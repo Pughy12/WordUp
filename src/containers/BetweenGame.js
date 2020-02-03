@@ -17,10 +17,6 @@ class BetweenGame extends Component {
     }
 
     handleGuess = () => {
-        const guess = BetweenStateStore.getGuessText();
-
-
-
         //     const guess = BetweenStateStore.getGuessText();
         //     const wordToGuess = BetweenStateStore.getWordToGuess();
         //     const guessedWords = [...BetweenStateStore.getGuessedWordsBefore(), ...GuessMyWordStateStore.getGuessedWordsAfter()];

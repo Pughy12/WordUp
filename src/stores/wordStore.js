@@ -1,4 +1,4 @@
-import basicWords from './basicWords';
+import basicWords from '../resources/basicWords';
 import { extendObservable } from 'mobx';
 
 class WordStore {
@@ -28,12 +28,10 @@ class WordStore {
     getAllWords = async() => {
         let dWords = await this.dynamicWords;
 
-        console.log('building all words from ' + this.basicWords.length + 'basic and ' + dWords.length + ' dynamic');
-
         this.allWords = [...this.basicWords, ...dWords];
-        console.log("# All words: " + this.allWords.length);
+        console.debug("# All words: " + this.allWords.length);
 
-        return this.allWords.sort();
+        return this.allWords;
     };
 }
 

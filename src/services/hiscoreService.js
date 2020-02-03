@@ -8,12 +8,6 @@ const baseServiceUrl = 'http://dreamlo.com/lb/';
 const getHiscoresPath = `${baseServiceUrl}${publicApiKey}/json`;
 const submitHiscorePath = `${baseServiceUrl}${privateApiKey}/add/`;
 
-var calculateHiscore = function(numGuesses, numAssists) {
-    const score = 100 - Math.max(0, (numGuesses - 1)) - (numAssists * 10);
-    console.log(`Calculated score; # Guesses: ${numGuesses}, # Assists: ${numAssists}, Score: ${score}`);
-    return score;
-}
-
 /**
  * Hiscore service - currently only supports hiscores for 'Guess My Word' game
  */
@@ -23,14 +17,14 @@ const hiscoreFunctions = {
             getHiscoresPath, { crossdomain: true }
         ).then(response => {
             if (!response) {
-                return;
+                return [];
             }
 
-            console.log('Raw hiscores: ' + response.data);
+            console.debug('Raw hiscores: ' + response.data);
 
-            var leaderboard = response.data.dreamlo.leaderboard;
+            var leaderboard = ((response.data || {}).dreamlo || {}).leaderboard;
 
-            if (leaderboard == null) {
+            if ((leaderboard === null) || (leaderboard === undefined)) {
                 return [];
             }
 
@@ -40,7 +34,7 @@ const hiscoreFunctions = {
     },
     calculateHiscore: (numGuesses, numAssists) => {
         const score = 100 - Math.max(0, (numGuesses - 1)) - (numAssists * 10);
-        // console.log(`Calculated score; # Guesses: ${numGuesses}, # Assists: ${numAssists}, Score: ${score}`);
+        console.debug(`Calculated score; # Guesses: ${numGuesses}, # Assists: ${numAssists}, Score: ${score}`);
         return score;
     },
     submitHiscore: async(username, numGuesses, numAssists) => {

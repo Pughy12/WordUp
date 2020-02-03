@@ -19,7 +19,7 @@ class GuessMyWordGame extends Component {
         GuessMyWordStateStore.setErrorMessage('');
     }
 
-    handleGuess = async () => {
+    handleGuess = async() => {
         const guess = GuessMyWordStateStore.getGuessText();
         const wordToGuess = GuessMyWordStateStore.getWordToGuess();
         const guessedWords = [...GuessMyWordStateStore.getGuessedWordsBefore(), ...GuessMyWordStateStore.getGuessedWordsAfter()];
@@ -55,7 +55,7 @@ class GuessMyWordGame extends Component {
     }
 
     win = () => {
-        console.log("=========================== WIN ===========================")
+        console.debug("=========================== WIN ===========================")
         GuessMyWordStateStore.setWinModalOpen(true);
     }
 
@@ -76,7 +76,7 @@ class GuessMyWordGame extends Component {
     }
 
     render() {
-        console.log("====================== Render ======================");
+        console.debug("====================== Render ======================");
 
         const wordToGuess = GuessMyWordStateStore.getWordToGuess();
         const guessedWordsBefore = GuessMyWordStateStore.getGuessedWordsBefore();
@@ -88,9 +88,9 @@ class GuessMyWordGame extends Component {
             <div>
                 <img src="/logo.png" alt="Word Up!" />
                 <Typography variant="h3">Guess the word of which I am thinking</Typography>
-                <GuessResult listType='before' guessedWords={guessedWordsBefore} />
+                <GuessResult listType='before' guessedWords={guessedWordsBefore} text="my word is after:"/>
                 <GuessForm guessText={guessText} errorMessage={errorMessage} handleTextUpdate={this.handleTextUpdate} handleSubmitGuess={this.handleGuess} wordToGuess={wordToGuess}/>
-                <GuessResult listType='after' guessedWords={guessedWordsAfter} />
+                <GuessResult listType='after' guessedWords={guessedWordsAfter} text="my word is before:" />
                 <ViewHiscores />
                 <WinModal />
             </div>

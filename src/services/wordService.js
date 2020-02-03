@@ -8,7 +8,7 @@ export default {
     pickGuessWord: () => {
         const validWords = WordStore.getBasicWords();
         const word = validWords[Math.floor(Math.random() * validWords.length)];
-        console.log("Word to guess is: " + word);
+        console.debug("Word to guess is: " + word);
 
         return word;
     },
@@ -51,16 +51,17 @@ export default {
             Axios.get(`/words/words.txt`)
             .then(response => {
                 if (!response) {
-                    return;
+                    return [];
                 }
 
                 const words = response.data.split("\n");
-                console.log("Loaded " + words.length + " words");
+                console.debug("Loaded " + words.length + " words");
 
-                if (words.length > 0) {
-                    console.log(" Recieved dynamic words");
-                    return (words);
+                if (words.length === 0) {
+                    console.warn("No extra words loaded :(");
                 }
+
+                return (words);
             })
         )
     }
